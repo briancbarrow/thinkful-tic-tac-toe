@@ -1,4 +1,8 @@
 $(document).ready(function() {
+  $('.reset').click(function(){
+    ticTacObj.reset();
+  });
+
   $('.box').on('click', function(e) {
     if(ticTacObj.winner !== true && $(this).text() === "") {
       ticTacObj.toggle = 1;
@@ -16,7 +20,7 @@ $(document).ready(function() {
 
   var ticTacObj = {
     board: {
-      a1: 'test',
+      a1: '',
       a2: '',
       a3: '',
       b1: '',
@@ -28,6 +32,15 @@ $(document).ready(function() {
     },
     counter: 0,
     winner: false,
+    reset: function(){
+      ticTacObj.counter = 0;
+      $('.box').each(function(index){
+        $(this).text('')
+        ticTacObj.board[$(this).attr('id')] = $(this).text(''); 
+      });
+      ticTacObj.winner = false;
+      $('.announcement').hide();
+    },
     winCheck: function(arr) {      
       arr.some(function(element, i){
         if((this.board.a1 === element && this.board.a2 === element && this.board.a3 === element) ||
@@ -155,5 +168,6 @@ $(document).ready(function() {
       ticTacObj.boardCheck();      
       ticTacObj.winCheck(['X', 'O']); 
     }
-  }
+  };
+
 });
